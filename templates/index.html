@@ -1,0 +1,133 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <title>test</title>
+  </head>
+
+<body>
+
+  <nav class="navbar navbar-light bg-light nav-fill w-80 fixed-top">
+    <div id="logo" class="navElement">
+      <a href="#">
+        <img width="30" height="30" src="../static/images/logo.png">
+        VocabCards
+      </a>
+    </div>
+
+    <div id="page-title" class="navElement">
+      <header>Decks</header>
+    </div>
+
+    <div class="nav-element">
+      <a href="#">
+        <img id="profile" src="../static/images/profile.png">
+      </a>
+    </div>
+  </nav>
+
+  <div id="home-container" class="container-fluid">
+    <div class="row">
+      <div class="col-2 col-lg-1">
+        <div id="deck-controls">
+          <div id="deck-add" class="square-btn-background" data-toggle="modal" data-target="#create-deck-modal">
+            <img src="../static/images/plus.png" alt="">
+          </div>
+          <div id="deck-delete" class="square-btn-background">
+            <img src="../static/images/delete.png" alt="">
+          </div>
+          <div id="deck-generate" class="square-btn-background">
+            <img src="../static/images/generate.png" alt="">
+          </div>
+        </div>
+      </div>
+      
+      <div id="decks-container" class="col-10 col-lg-11">     
+        <div id="end-of-cards" class="placeholder">
+        </div>
+        <div class="placeholder">
+        </div>
+      </div>
+
+
+      
+    </div>
+  </div>
+
+
+<!-- create deck modal window -->
+<div class="modal fade" id="create-deck-modal" tabindex="-1" role="dialog" aria-labelledby="create-deck-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Deck</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div id="form-name">
+            <label for="deck-name">Deck name:</label><br>
+            <input type="text" id="deck-name" name="deck-name">
+          </div>
+          <div id="form-type">
+            <p>Deck type:</p>
+            <input type="radio" id="standard" name="deck-type" value="standard" checked>
+            <label for="standard">Standard</label>
+            <input type="radio" id="spaced" name="deck-type" value="spaced">
+            <label for="spaced">Spaced repetition</label>
+          </div>
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="create-deck-fbtn" type="button" class="btn btn-primary" data-dismiss="modal">Create Deck</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- click on deck modal window -->
+<div class="modal fade" id="click-deck-modal" tabindex="-1" role="dialog" aria-labelledby="click-deck-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modal-deck-name" class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>Number of cards:   </span>
+        <span id="number-of-cards"></span>
+        <br>
+        <span>Revision style:     </span>
+        <span id="revision-style"></span>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-edit-cards" type="button" class="btn btn-primary" data-dismiss="modal">Edit Cards</button>
+        <button id="modal-revise" type="button" class="btn btn-primary" data-dismiss="modal">Revise</button>
+        <button id="modal-edit-deck" type="button" class="btn btn-primary" data-dismiss="modal">Edit Deck</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <script src="../static/js/index.js"></script>
+    <!-- Bootstrap CSS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
