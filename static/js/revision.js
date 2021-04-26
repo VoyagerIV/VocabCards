@@ -1,3 +1,11 @@
+// change page title
+const pageTitle = document.getElementById("page-title");
+let selectedDeck = sessionStorage.getItem("selectedDeck");
+pageTitle.innerHTML = selectedDeck;
+
+// get username
+let username = sessionStorage.getItem("username");
+
 const cardText = document.getElementById("card-text");
 const showAnswerBtn = document.getElementById("show-answer");
 
@@ -14,9 +22,7 @@ httpRequest = new XMLHttpRequest();
 // displayDecks function is called when response is received by the request object
 httpRequest.onreadystatechange = revisionCards;
 
-let selectedDeck = sessionStorage.getItem("selectedDeck");
-
-requestUrl = "/revisionCards?deck=" + selectedDeck;
+requestUrl = "/revisionCards?deck=" + selectedDeck + "&username=" + username;
 
 // make request
 httpRequest.open("GET", requestUrl, true);
@@ -45,12 +51,12 @@ function next() {
   if (side % 2 === 0) {
     showAnswerBtn.textContent = "Next";
     // show card's back field
-    cardText.textContent = cards[curr]["back"];
+    cardText.innerHTML = cards[curr]["back"];
     // change button
   } else {
     // move to next card
     curr += 1;
-    cardText.textContent = cards[curr]["front"];
+    cardText.innerHTML = cards[curr]["front"];
     showAnswerBtn.textContent = "Show Answer";
   }
   side += 1;

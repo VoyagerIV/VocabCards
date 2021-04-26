@@ -1,5 +1,5 @@
 body {
-  background-color: #00b2ff;
+  background: linear-gradient(90deg, #00a2ff 10%, #43c7ff 90%);
 }
 
 #home-container {
@@ -54,6 +54,12 @@ a {
   justify-content: center;
   align-items: center;
   border-radius: 7px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.square-btn-background:hover {
+  background-color: #e9f7ff;
 }
 
 .square-btn-background:hover,
@@ -66,6 +72,11 @@ a {
   cursor: pointer;
 }
 
+#define:hover,
+#translate:hover {
+  background-color: #0e5ed7;
+}
+
 .square-btn-background img {
   width: 25px;
   height: 25px;
@@ -76,7 +87,7 @@ a {
   height: 50px;
   border-radius: 7px;
   background-color: white;
-  color: #00b2ff;
+  color: #256efd;
   font-size: 18px;
   line-height: 50px;
   text-align: center;
@@ -100,6 +111,12 @@ a {
   font-size: 18px;
   text-align: center;
   line-height: 168px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.deck:hover {
+  transform: scale(1.03);
 }
 
 .placeholder {
@@ -112,6 +129,8 @@ a {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-around;
+  height: 88vh;
+  overflow: scroll;
 }
 
 #revision-view {
@@ -127,6 +146,7 @@ a {
   text-align: center;
   flex-direction: column;
   font-size: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 #preferences {
@@ -172,6 +192,7 @@ a {
   justify-content: center;
   text-align: center;
   flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 #deck-cards-container {
@@ -197,6 +218,26 @@ a {
   width: 100%;
 }
 
+#define-translate-checks-container {
+  width: 385px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+#define-check,
+#translate-check,
+#pronounce-check {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+#translate-check,
+#pronounce-check {
+  margin-left: 10px;
+}
+
 #card-front,
 #card-back {
   height: 80%;
@@ -209,7 +250,7 @@ a {
 
 #define,
 #translate {
-  background-color: #00b2ff;
+  background-color: #256efd;
   width: 80px;
   border-radius: 5px;
   text-align: center;
@@ -221,15 +262,21 @@ a {
   font-size: 16px;
 }
 
+.translate-define-checks {
+  float: right;
+}
+
 #define {
   margin-right: 25px;
 }
 
-#language {
-  width: 90px;
+#language,
+#language2 {
+  width: 100px;
   float: right;
   margin-right: 5px;
   margin-top: 2px;
+  margin-left: 5px;
 }
 
 #default-language {
@@ -248,13 +295,24 @@ a {
   height: 35px;
 }
 
+#add-multiple-input {
+  border: none;
+  width: 99%;
+  height: 65%;
+  overflow: scroll;
+}
+
+#add-multiple-input:focus {
+  outline: none;
+}
+
 div:focus {
   outline: none;
 }
 
 #front-container,
 #back-container {
-  border: 2px solid #00b2ff;
+  border: 2px solid #256efd;
   border-radius: 5px;
   width: 95%;
   margin: 0 auto;
@@ -272,29 +330,45 @@ div:focus {
   padding-top: 5px;
 }
 
+#add-multiple-container {
+  border: 2px solid #256efd;
+  border-radius: 5px;
+  width: 95%;
+  margin: 0 auto;
+  padding-left: 7px;
+  height: 96%;
+}
+
 #audio-btn img {
   width: 25px;
   height: 25px;
 }
 
-#form-name,
-#form-type {
+.form-name,
+.form-type,
+.form-back-field {
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
 }
 
-#form-name > * {
+.form-name > * {
   margin-right: 15px;
 }
 
-#deck-name {
+#generate-deck-name,
+#edit-deck-name {
   width: 295px;
 }
 
-#form-type > * {
+.form-type > *,
+.form-back-field > * {
   margin-right: 22px;
+}
+
+.form-back-field {
+  margin-top: 13px;
 }
 
 #number-of-cards,
@@ -319,4 +393,142 @@ div:focus {
 
 #save-changes {
   width: 150px;
+}
+
+.modal-footer button {
+  width: 180px;
+}
+
+.modal-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.modal-icon {
+  width: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.modal-icon > img,
+#modal-close > img {
+  width: 20px;
+  height: 20px;
+}
+
+#edit-delete-container {
+  width: 350px;
+  margin-left: 5px;
+}
+
+#modal-close {
+  background-color: white;
+  border: none;
+}
+
+.slider {
+  position: absolute;
+  width: 0;
+  transition: all 0.5s 0.3s ease;
+}
+
+.selected-card {
+  background-color: #d4efff;
+}
+
+.cancel-btn {
+  color: white;
+  background-color: #6c757d;
+}
+
+.cancel-btn:hover {
+  background-color: #5c636a;
+}
+
+.confirm-btn {
+  color: white;
+  background-color: #126efd;
+}
+
+.confirm-btn:hover {
+  background-color: #0e5ed7;
+}
+
+#auth-container {
+  padding-left: 23px;
+  padding-right: 23px;
+  width: 350px;
+  height: 530px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#auth-container label {
+  font-weight: bold;
+}
+
+#auth-container img {
+  padding-top: 20px;
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  width: 150px;
+}
+
+#username,
+#password {
+  width: 300px;
+  border: 1px solid black;
+  height: 35px;
+  border-radius: 5px;
+  border-color: #126efd;
+  padding-left: 5px;
+}
+
+#register-btn,
+#signin-btn {
+  background-color: #126efd;
+  color: white;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+}
+
+#register-btn:hover,
+#signin-btn:hover {
+  background-color: #00a2ff;
+}
+
+.alt-link {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 15px;
+}
+
+#signin-link,
+#register-link {
+  text-decoration: underline;
+  color: #126efd;
+}
+
+#signin-link:hover,
+#register-link:hover {
+  cursor: pointer;
+}
+
+.alert {
+  margin-top: 48px;
+}
+
+#auth-error {
+  color: red;
+  text-align: center;
+}
+
+nav {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) !important;
 }

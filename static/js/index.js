@@ -1,3 +1,6 @@
+// get username
+let username = sessionStorage.getItem("username");
+
 // profile goes to the preferences page
 const profileBtn = document.getElementById("profile");
 profileBtn.addEventListener("click", function () {
@@ -12,7 +15,7 @@ httpRequest = new XMLHttpRequest();
 // displayDecks function is called when response is received by the request object
 httpRequest.onreadystatechange = displayDecks;
 
-requestUrl = "/displayDecks";
+requestUrl = "/displayDecks?username=" + username;
 
 // make request
 httpRequest.open("GET", requestUrl, true);
@@ -39,7 +42,6 @@ function displayDecks() {
 
 // deck controls
 const deckAddBtn = document.getElementById("deck-add");
-const deckDeleteBtn = document.getElementById("deck-delete");
 const deckGenerateBtn = document.getElementById("deck-generate");
 // deck container
 const decksContainer = document.getElementById("decks-container");
@@ -93,7 +95,13 @@ function createDeckRequest() {
   // createDeck function is called when response is received by the request object
   httpRequest.onreadystatechange = createDeck;
 
-  requestUrl = "/createDeck?name=" + deckName + "&type=" + deckType;
+  requestUrl =
+    "/createDeck?name=" +
+    deckName +
+    "&type=" +
+    deckType +
+    "&username=" +
+    username;
 
   // make request
   httpRequest.open("GET", requestUrl, true);
@@ -112,6 +120,45 @@ function createDeck() {
   }
 }
 
+const generateDeckBtn = document.getElementById("generate-deck-btn");
+generateDeckBtn.addEventListener("click", generateDeckRequest);
+
+// generat vocabulary deck //
+function generateDeckRequest() {
+  // get inputted deck name
+  deckName = document.getElementById("generate-deck-name").value;
+  let definition = document.getElementById("auto-definition");
+  let translation = document.getElementById("auto-translation");
+
+  let fields;
+  if (definition.checked && translation.checked) {
+    fields = "both";
+  } else if (definition.checked) {
+    fields = "definition";
+  } else {
+    fields = "translation";
+  }
+
+  // make new XLMHttpRequest object
+  httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function () {
+    location.reload();
+  };
+
+  requestUrl =
+    "/generateDeck?name=" +
+    deckName +
+    "&fields=" +
+    fields +
+    "&username=" +
+    username;
+
+  httpRequest.open("GET", requestUrl, true);
+
+  httpRequest.send();
+}
+
 // click on deck to get deck operations //
 
 // modal window fields
@@ -122,12 +169,92 @@ const numberOfCards = document.getElementById("number-of-cards");
 // modal window buttons
 const editCardsBtn = document.getElementById("modal-edit-cards");
 const reviseBtn = document.getElementById("modal-revise");
-const editDeckBtn = document.getElementById("modal-edit-deck");
+const editDeckBtn = document.getElementById("edit-deck-btn");
+const deleteDeckBtn = document.getElementById("modal-delete-deck");
 
 function showDeckModal(name, type, totalCards) {
   modalDeckName.innerText = name;
   modalDeckType.innerText = type;
   numberOfCards.innerText = totalCards;
+}
+
+// modal delete deck //
+deleteDeckBtn.addEventListener("click", deleteDeckRequest);
+
+function deleteDeckRequest() {
+  let deck = sessionStorage.getItem("selectedDeck");
+
+  // new XLMHttpRequest
+  httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = deleteDeck;
+
+  requestUrl = "/deleteDeck?deck=" + deck + "&username=" + username;
+
+  httpRequest.open("GET", requestUrl, true);
+
+  httpRequest.send();
+}
+
+function deleteDeck() {
+  if (httpRequest.readyState != 4 && httpRequest.status != 200) {
+    return;
+  }
+  let deck = sessionStorage.getItem("selectedDeck");
+  let decks = document.querySelectorAll(".deck");
+  for (let i = 0; i < decks.length; i++) {
+    if (decks[i].textContent == deck) {
+      decksContainer.removeChild(decks[i]);
+      break;
+    }
+  }
+}
+
+// modal edit deck //
+editDeckBtn.addEventListener("click", editDeckRequest);
+
+function editDeckRequest() {
+  let deck = sessionStorage.getItem("selectedDeck");
+
+  // get new name and type of deck
+  let newName = document.getElementById("edit-deck-name").value;
+
+  let spaced = document.getElementById("edit-spaced");
+
+  if (spaced.checked) {
+    newType = "spaced";
+  } else {
+    newType = "standard";
+  }
+
+  // new XLMHttpRequest
+  httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function () {
+    editDeck(deck, newName);
+  };
+
+  requestUrl =
+    "/editDeck?deck=" +
+    deck +
+    "&new_name=" +
+    newName +
+    "&new_type=" +
+    newType +
+    "&username=" +
+    username;
+
+  httpRequest.open("GET", requestUrl, true);
+
+  httpRequest.send();
+}
+
+function editDeck(deck, newName) {
+  if (httpRequest.readyState != 4 && httpRequest.status != 200) {
+    return;
+  }
+
+  window.location.replace("/");
 }
 
 // modal edit cards page navigation //

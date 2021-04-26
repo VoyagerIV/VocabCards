@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/style.css">
 
-    <title>test</title>
+    <title>Home</title>
   </head>
 
 <body>
@@ -38,13 +38,10 @@
     <div class="row">
       <div class="col-2 col-lg-1">
         <div id="deck-controls">
-          <div id="deck-add" class="square-btn-background" data-toggle="modal" data-target="#create-deck-modal">
+          <div id="deck-add" title="create deck" class="square-btn-background" data-toggle="modal" data-target="#create-deck-modal">
             <img src="../static/images/plus.png" alt="">
           </div>
-          <div id="deck-delete" class="square-btn-background">
-            <img src="../static/images/delete.png" alt="">
-          </div>
-          <div id="deck-generate" class="square-btn-background">
+          <div id="deck-generate" title="generate vocab deck" class="square-btn-background" data-toggle="modal" data-target="#generate-deck-modal">
             <img src="../static/images/generate.png" alt="">
           </div>
         </div>
@@ -64,22 +61,22 @@
 
 
 <!-- create deck modal window -->
-<div class="modal fade" id="create-deck-modal" tabindex="-1" role="dialog" aria-labelledby="create-deck-modal" aria-hidden="true">
+<div class="modal" id="create-deck-modal" tabindex="-1" role="dialog" aria-labelledby="create-deck-modal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Create Deck</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button id="modal-close" type="button" data-dismiss="modal" aria-label="Close">
+          <img src="../static/images/blue-close.png">
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div id="form-name">
+          <div class="form-name">
             <label for="deck-name">Deck name:</label><br>
             <input type="text" id="deck-name" name="deck-name">
           </div>
-          <div id="form-type">
+          <div class="form-type">
             <p>Deck type:</p>
             <input type="radio" id="standard" name="deck-type" value="standard" checked>
             <label for="standard">Standard</label>
@@ -97,31 +94,102 @@
 </div>
 
 <!-- click on deck modal window -->
-<div class="modal fade" id="click-deck-modal" tabindex="-1" role="dialog" aria-labelledby="click-deck-modal" aria-hidden="true">
+<div class="modal" id="click-deck-modal" tabindex="-1" role="dialog" aria-labelledby="click-deck-modal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 id="modal-deck-name" class="modal-title"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <div id="edit-delete-container">
+          <button title="edit deck" id="modal-edit-deck" type="button" class="btn modal-icon"  data-toggle="modal" data-dismiss="modal" data-target="#edit-deck-modal">
+          <img src="../static/images/blue-edit.png"></button>
+          <button title="delete deck" id="modal-delete-deck" type="button" class="btn modal-icon" data-dismiss="modal">
+          <img src="../static/images/blue-delete.png"></button>
+        </div>
+        <button id="modal-close" type="button" data-dismiss="modal" aria-label="Close">
+          <img src="../static/images/blue-close.png">
         </button>
       </div>
       <div class="modal-body">
         <span>Number of cards:   </span>
         <span id="number-of-cards"></span>
         <br>
-        <span>Revision style:     </span>
+        <span>Revision style:</span>
         <span id="revision-style"></span>
       </div>
       <div class="modal-footer">
         <button id="modal-edit-cards" type="button" class="btn btn-primary" data-dismiss="modal">Edit Cards</button>
         <button id="modal-revise" type="button" class="btn btn-primary" data-dismiss="modal">Revise</button>
-        <button id="modal-edit-deck" type="button" class="btn btn-primary" data-dismiss="modal">Edit Deck</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- edit deck modal window -->
+<div class="modal" id="edit-deck-modal" tabindex="-1" role="dialog" aria-labelledby="edit-deck-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Deck</h5>
+        <button id="modal-close" type="button" data-dismiss="modal" aria-label="Close">
+          <img src="../static/images/blue-close.png">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-name">
+            <label for="deck-name">Deck name:</label><br>
+            <input type="text" id="edit-deck-name" name="deck-name">
+          </div>
+          <div class="form-type">
+            <p>Deck type:</p>
+            <input type="radio" id="edit-standard" name="deck-type" value="standard" checked>
+            <label for="standard">Standard</label>
+            <input type="radio" id="edit-spaced" name="deck-type" value="spaced">
+            <label for="spaced">Spaced repetition</label>
+          </div>
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="edit-deck-btn" type="button" class="btn btn-primary" data-dismiss="modal">Edit Deck</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- generate deck modal window -->
+<div class="modal" id="generate-deck-modal" tabindex="-1" role="dialog" aria-labelledby="generate-deck-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Generate Vocabulary Deck</h5>
+        <button id="modal-close" type="button" data-dismiss="modal" aria-label="Close">
+          <img src="../static/images/blue-close.png">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-name">
+            <label for="generate-deck-name">Deck name:</label><br>
+            <input type="text" id="generate-deck-name" name="deck-name">
+          </div>
+          <div class="form-back-field">
+            <p>Back field:</p>
+            <input type="checkbox" id="auto-definition" name="deck-type" value="definition" checked>
+            <label for="standard">Definition</label>
+            <input type="checkbox" id="auto-translation" name="deck-type" value="translation">
+            <label for="spaced">Translation</label>
+          </div>
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="generate-deck-btn" type="button" class="btn btn-primary" data-dismiss="modal">Generate Deck</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <script src="../static/js/index.js"></script>
